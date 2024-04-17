@@ -3,38 +3,27 @@
 class Media {
 	static type = 'Media'
 
-	get type() {
-		return this.type
+	constructor({ title, artist, genre, description }) {
+		this.title = title
+		this.artist = artist
+		this.genre = genre
+		this.description = description
 	}
 
-	title = undefined
-	artist = undefined
-	artworkUrl100 = undefined
+	get type() {
+		return this.constructor.type
+	}
 }
 
-class Movie {
+class Movie extends Media {
 	static type = 'Movie'
 	static detailsComponent = 'MovieDetails'
 
-	title
-	actor
-	genre
-	artist
-	runtime
-	producer
-	rating
-	director
-	releaseYear
-	featureFilm
-	movieArtist
-	movie
-	description
-	constructor(
+	constructor({
 		title,
 		actor,
 		genre,
 		artist,
-		runtime,
 		producer,
 		rating,
 		director,
@@ -43,12 +32,9 @@ class Movie {
 		movieArtist,
 		movie,
 		description,
-	) {
-		this.title = title
+	}) {
+		super({ title, artist, genre, description })
 		this.actor = actor
-		this.genre = genre
-		this.artist = artist
-		this.runtime = runtime
 		this.producer = producer
 		this.rating = rating
 		this.director = director
@@ -56,23 +42,74 @@ class Movie {
 		this.featureFilm = featureFilm
 		this.movieArtist = movieArtist
 		this.movie = movie
-		this.description = description
 	}
 }
 
-class Album {
-	static type = 'Album'
-	static detailsComponent = 'AlbumDetails'
+class Music extends Media {
+	static type = 'Music'
+	static detailsComponent = 'MusicDetails'
 
-	title
-	artist
-	trackCount
-
-	constructor(title, artist, trackCount) {
-		this.title = title
-		this.artist = artist
-		this.trackCount = trackCount
+	constructor({ title, artist, genre, album, composer, songTerm }) {
+		super({ title, artist, genre })
+		this.album = album
+		this.composer = composer
+		this.songTerm = songTerm
 	}
 }
 
-export { AudioBook, EBook, Media, Movie, Music, MusicVideo, Podcast, Software, TvShow }
+class Podcast extends Media {
+	static type = 'Podcast'
+	static detailsComponent = 'PodcastDetails'
+
+	constructor({ title, language, author, genre, keywords, description }) {
+		super({ title, genre, description })
+		this.language = language
+		this.author = author
+		this.keywords = keywords
+	}
+}
+
+class Audiobook extends Media {
+	static type = 'Audiobook'
+	static detailsComponent = 'AudiobookDetails'
+
+	constructor({ title, author, genre }) {
+		super({ title, genre })
+		this.author = author
+	}
+}
+
+class MusicVideo extends Media {
+	static type = 'MusicVideo'
+	static detailsComponent = 'MusicVideoDetails'
+
+	constructor({ title, artist, genre, album, songTerm }) {
+		super({ title, artist, genre })
+		this.album = album
+		this.songTerm = songTerm
+	}
+}
+
+class TvShow extends Media {
+	static type = 'TvShow'
+	static detailsComponent = 'TvShowDetails'
+
+	constructor({ title, genre, episodeTerm, seasonTerm, showTerm, description }) {
+		super({ title, genre, description })
+		this.episodeTerm = episodeTerm
+		this.seasonTerm = seasonTerm
+		this.showTerm = showTerm
+	}
+}
+
+class Software extends Media {
+	static type = 'Software'
+	static detailsComponent = 'SoftwareDetails'
+
+	constructor({ title, softwareDeveloper }) {
+		super({ title })
+		this.softwareDeveloper = softwareDeveloper
+	}
+}
+
+export { Audiobook, Audiobook as EBook, Media, Movie, Music, MusicVideo, Podcast, Movie as ShortFilm, Software, TvShow }

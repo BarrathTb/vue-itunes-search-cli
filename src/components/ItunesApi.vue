@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import ItunesService from '../models/ItunesService'
 import ItunesItem from './ItunesItem.vue'
 export default {
 	components: {
@@ -50,18 +51,12 @@ export default {
 			this.results = []
 			this.errorMessage = ''
 
-			const encodedTerm = encodeURIComponent(this.searchTerm)
-			const url = `https://itunes.apple.com/search?term=${encodedTerm}&limit=25`
-
 			try {
-				const response = await fetch(url)
-				if (!response.ok) {
-					throw new Error('There was an issue with the request.')
-				}
-				const data = await response.json()
-				this.results = data.results
+				const itunesService = new ItunesService()
+				this.results = await itunesService.search(this.searchTerm)
 			} catch (error) {
-				this.errorMessage = error.message
+				console.error('Error during iTunes search:', error)
+				this.errorMessage = 'An error occurred while searching. Please try again.'
 			} finally {
 				this.loading = false
 			}

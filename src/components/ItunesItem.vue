@@ -1,20 +1,12 @@
 <!-- @format -->
 
 <template>
-	<div class="card">
-		<div class="img-container">
-			<img :src="item.artworkUrl100" class="card-img-top" alt="Album Artwork" />
-		</div>
-		<div class="card-body">
-			<h5 class="card-title">{{ item.trackName }}</h5>
-			<p class="card-text">{{ item.artistName }}</p>
-
-			<a :href="item.previewUrl" class="btn btn-primary" target="_blank">Preview</a>
-		</div>
-	</div>
+	<component :is="detailsComponent" :item="media" />
 </template>
 
 <script>
+import MediaFactory from '@/models/MediaFactory.js'
+
 export default {
 	name: 'ItunesItem',
 	props: {
@@ -23,17 +15,25 @@ export default {
 			required: true,
 		},
 	},
+	computed: {
+		media() {
+			return MediaFactory.createMedia(this.item)
+		},
+		detailsComponent() {
+			return MediaFactory.displayComponent(this.media)
+		},
+	},
 }
 </script>
 
 <style scoped>
 .card {
-	width: 18rem; /* Fixed width for the card */
+	width: 18rem;
 	margin-bottom: 1rem;
 }
 
 .img-container {
-	height: 200px; /* Fixed height for image container */
+	height: 200px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -41,23 +41,21 @@ export default {
 }
 
 .card-img-top {
-	max-width: 100%; /* Limit image width to not exceed container */
-	max-height: 100%; /* Limit image height to not exceed container */
-	object-fit: contain; /* Prevent image distortion */
+	max-width: 100%;
+	max-height: 100%;
+	object-fit: contain;
 }
 
 .card-body {
-	height: 150px; /* Fixed height for the card body to ensure consistency */
+	height: 150px;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 }
 
 .card-title {
-	/* Additional styles for title if necessary */
 }
 
 .card-text {
-	/* Additional styles for text if necessary */
 }
 </style>

@@ -1,39 +1,35 @@
 /** @format */
 
-export default class MediaFactory {
-	// Factory to create object models for results returned by iTunes Search API.
+import { Audiobook, EBook, Movie, Music, MusicVideo, Podcast, Software, TvShow } from '@/models/Media.js'
 
+export default class MediaFactory {
 	static createMedia(iTunesItem) {
-		let newItem = false
-		switch (iTunesItem.type) {
-			case 'movie':
-				newItem = Object.assign(new Movie(), iTunesItem)
-				break
+		let type = iTunesItem.wrapperType || iTunesItem.kind
+
+		if (type === 'track') {
+			type = iTunesItem.kind
+		}
+
+		switch (type) {
+			case 'feature-movie':
+				return new Movie(iTunesItem)
 			case 'podcast':
-				newItem = Object.assign(new Podcast(), iTunesItem)
-				break
-			case 'music':
-				newItem = Object.assign(new Music(), iTunesItem)
-				break
-			case 'musicVideo':
-				newItem = Object.assign(new MusicVideo(), iTunesItem)
-				break
-			case 'audioBook':
-				newItem = Object.assign(new AudioBook(), iTunesItem)
-				break
-			case 'shortFilm':
-				newItem = Object.assign(new ShortFilm(), iTunesItem)
-				break
+				return new Podcast(iTunesItem)
+			case 'song':
+				return new Music(iTunesItem)
+			case 'music-video':
+				return new MusicVideo(iTunesItem)
+			case 'audiobook':
+				return new Audiobook(iTunesItem)
 			case 'software':
-				newItem = Object.assign(new Software(), iTunesItem)
-				break
-			case 'tvShow':
-				newItem = Object.assign(new TvShow(), iTunesItem)
-				break
-			case 'all':
-				newItem = Object.assign(new All(), iTunesItem)
-				break
-				deafult: console.error(`Unknown type: ${iTunesItem.type}`)
+				return new Software(iTunesItem)
+			case 'tv-episode':
+				return new TvShow(iTunesItem)
+			case 'ebook':
+				return new EBook(iTunesItem)
+			default:
+				console.error(`Unknown type: ${type}`)
+				return null
 		}
 	}
 }
