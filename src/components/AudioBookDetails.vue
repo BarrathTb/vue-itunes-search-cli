@@ -10,6 +10,16 @@ export default {
 			type: AudioBook,
 		},
 	},
+	computed: {
+		runtimeInMinutes() {
+			// Ensure that this.item.runtime is defined and is a number
+			if (this.item && typeof this.item.runtime === 'number') {
+				// Convert milliseconds into minutes and round down
+				return Math.floor(this.item.runtime / 60000)
+			}
+			return null
+		},
+	},
 }
 </script>
 

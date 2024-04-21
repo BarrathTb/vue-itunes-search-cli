@@ -48,7 +48,7 @@ export default class MediaFactory {
 					apiData.artistName,
 					apiData.trackTimeMillis,
 					apiData.primaryGenreName,
-					apiData.description,
+					apiData.shortDescription,
 				)
 
 			case 'music-video':

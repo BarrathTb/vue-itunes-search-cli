@@ -46,14 +46,14 @@ export default {
 			class="btn btn-primary btn-sm mt-2 mb-2"
 			type="button"
 			data-bs-toggle="collapse"
-			:data-bs-target="'#descriptionCollapse-' + item.id"
+			:data-bs-target="'#descriptionMovieCollapse' + item.trackId"
 			aria-expanded="false"
-			:aria-controls="'descriptionCollapse-' + item.id">
+			:aria-controls="'descriptionMovieCollapse-' + item.trackId">
 			Description
 		</button>
 
 		<!-- Collapsable Description Section -->
-		<div :id="'descriptionCollapse-' + item.id" class="collapse">
+		<div :id="'descriptionMovieCollapse' + item.trackId" class="collapse">
 			<div class="card card-body">
 				{{ item.description }}
 			</div>
@@ -65,7 +65,7 @@ export default {
 @import '@/scss/variables';
 .movie-cover {
 	display: flex;
-	width: 150px;
+	width: 100px;
 	height: auto;
 	margin: auto;
 	border-radius: 5px;
