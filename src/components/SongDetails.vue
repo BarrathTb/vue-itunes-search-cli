@@ -2,11 +2,15 @@
 
 <template>
 	<div class="song">
-		<img v-if="item.artworkUrl100" :src="item.artworkUrl100" alt="Song Cover" class="song-cover" />
-		<h3>{{ item.trackName }}</h3>
-		<p>Artist: {{ item.artistName }}</p>
-		<p>Album: {{ item.collectionName }}</p>
-		<p>Explicit: {{ item.trackExplicitness }}</p>
+		<img
+			v-if="item.artworkUrl100"
+			:src="item.artworkUrl100"
+			alt="Song Cover"
+			class="song-cover justify-content-center" />
+		<h5 class="mt-2">{{ item.title }}</h5>
+		<p>Artist: {{ item.artist }}</p>
+		<p>Album: {{ item.album }}</p>
+		<p>Explicit: {{ item.explicitness }}</p>
 	</div>
 </template>
 
@@ -22,4 +26,12 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.song-cover {
+	display: flex;
+	width: 150px;
+	height: auto;
+	margin: auto;
+	border-radius: 5px;
+}
+</style>

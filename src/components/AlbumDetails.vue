@@ -2,7 +2,12 @@
 
 <template>
 	<div class="album">
-		<img v-if="item.artworkUrl100" :src="item.artworkUrl100" alt="Album Cover" class="album-cover" />
+		<img
+			v-if="item.artworkUrl100"
+			:src="item.artworkUrl100"
+			alt="Album Cover"
+			class="album-cover justify-content-center" />
+		<h5 class="mt-2">{{ item.title }}</h5>
 		<h3>{{ item.collectionName }}</h3>
 		<p>Artist: {{ item.artistName }}</p>
 		<p>Tracks: {{ item.trackCount }}</p>
@@ -37,9 +42,11 @@ export default {
 }
 
 .album-cover {
-	width: 100%;
+	display: flex;
+	width: 150px;
 	height: auto;
-	margin-bottom: 15px;
+	margin: auto;
+	border-radius: 5px;
 }
 
 h3 {

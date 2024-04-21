@@ -9,7 +9,14 @@ export default class MediaFactory {
 				return this.createTrackBasedMedia(apiData)
 
 			case 'audiobook':
-				return new AudioBook(apiData.artworkUrl100, apiData.collectionName, apiData.artistName, apiData.description)
+				return new AudioBook(
+					apiData.artworkUrl100,
+					apiData.collectionName,
+					apiData.artistName,
+					apiData.description,
+					apiData.primaryGenreName,
+					apiData.trackTimeMillis,
+				)
 
 			case 'ebook':
 				return new Book(apiData.artworkUrl100, apiData.trackName, apiData.artistName, apiData.genres.join(', ')) // Assuming 'genres' is an array of genre names.
@@ -41,6 +48,7 @@ export default class MediaFactory {
 					apiData.artistName,
 					apiData.trackTimeMillis,
 					apiData.primaryGenreName,
+					apiData.description,
 				)
 
 			case 'music-video':
@@ -51,7 +59,8 @@ export default class MediaFactory {
 					apiData.artworkUrl100,
 					apiData.collectionName,
 					apiData.artistName,
-					apiData.genreIds.join(', '),
+					apiData.primaryGenreName,
+					apiData.trackTimeMillis,
 				)
 
 			case 'software':

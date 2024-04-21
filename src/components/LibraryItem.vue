@@ -2,6 +2,7 @@
 
 <script>
 import AlbumDetails from './AlbumDetails.vue'
+import AudioBookDetails from './AudioBookDetails.vue'
 import BookDetails from './BookDetails.vue'
 import MovieDetails from './MovieDetails.vue'
 import PodcastDetails from './PodcastDetails.vue'
@@ -10,7 +11,16 @@ import SongDetails from './SongDetails.vue'
 import TvShowDetails from './TvShowDetails.vue'
 export default {
 	name: 'LibraryItem',
-	components: { BookDetails, MovieDetails, AlbumDetails, PodcastDetails, SoftwareDetails, SongDetails, TvShowDetails },
+	components: {
+		AudioBookDetails,
+		BookDetails,
+		MovieDetails,
+		AlbumDetails,
+		PodcastDetails,
+		SoftwareDetails,
+		SongDetails,
+		TvShowDetails,
+	},
 	props: {
 		item: {
 			type: Object,

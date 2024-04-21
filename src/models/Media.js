@@ -32,11 +32,15 @@ class AudioBook extends MediaItem {
 
 	artist
 	description
+	genre
+	runtime
 
-	constructor(image, title, artist, description) {
+	constructor(image, title, artist, description, genre, runtime) {
 		super({ image, title, type: AudioBook.type })
 		this.artist = artist
 		this.description = description
+		this.genre = genre
+		this.runtime = runtime
 	}
 }
 
@@ -61,12 +65,14 @@ class Movie extends MediaItem {
 	director
 	runtime
 	genre
+	description
 
-	constructor(image, title, director, runtime, genre) {
+	constructor(image, title, director, runtime, genre, description) {
 		super({ image, title, type: Movie.type })
 		this.director = director
 		this.runtime = runtime
 		this.genre = genre
+		this.description = description
 	}
 }
 
@@ -76,11 +82,13 @@ class MusicVideo extends MediaItem {
 
 	artist
 	genre
+	runtime
 
-	constructor(image, title, artist, genre) {
+	constructor(image, title, artist, genre, runtime) {
 		super({ image, title, type: MusicVideo.type })
 		this.artist = artist
 		this.genre = genre
+		this.runtime = runtime
 	}
 }
 
@@ -90,11 +98,12 @@ class Podcast extends MediaItem {
 
 	artist
 	genre
-
-	constructor(image, title, artist, genre) {
+	runtime
+	constructor(image, title, artist, genre, runtime) {
 		super({ image, title, type: Podcast.type })
 		this.artist = artist
 		this.genre = genre
+		this.runtime = runtime
 	}
 }
 
