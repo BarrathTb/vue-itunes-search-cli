@@ -1,39 +1,28 @@
 <!-- @format -->
 
-<template>
-	<div class="card">
-		<div class="img-container">
-			<img :src="movie.artworkUrl100" class="card-img-top" alt="Movie Poster" />
-		</div>
-
-		<div class="card-body">
-			<h5 class="card-title">{{ movie.trackName }}</h5>
-			<p class="card-text">{{ movie.primaryGenreName }}</p>
-			<p class="card-text">{{ formattedReleaseDate }}</p>
-			<a :href="movie.previewUrl" class="btn btn-primary" target="_blank">Preview</a>
-		</div>
-	</div>
-</template>
-
 <script>
+import { Movie } from '@/models/Media.js'
+
 export default {
 	name: 'MovieDetails',
 	props: {
-		movie: {
-			type: Object,
-			required: true,
-		},
-	},
-	computed: {
-		formattedReleaseDate() {
-			if (this.movie.releaseDate) {
-				return this.$moment(this.movie.releaseDate).format('MMMM Do YYYY')
-			} else {
-				return 'Unknown'
-			}
+		item: {
+			type: Movie,
 		},
 	},
 }
 </script>
+
+<template>
+	<div class="movie">
+		<img v-if="item.artworkUrl100" :src="item.artworkUrl100" alt="Movie Cover" class="movie-cover" />
+		<h3>{{ item.trackName }}</h3>
+		<p>Director: {{ item.artistName }}</p>
+		<!-- Assuming director is given as artistName -->
+		<p>Runtime: {{ item.runtime }}</p>
+		<!-- Convert from millis if necessary -->
+		<p>Genre: {{ item.primaryGenreName }}</p>
+	</div>
+</template>
 
 <style scoped></style>

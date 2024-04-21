@@ -1,34 +1,73 @@
 /** @format */
 
-import { Audiobook, EBook, Movie, Music, MusicVideo, Podcast, Software, TvShow } from '@/models/Media.js'
+import { Album, AudioBook, Book, Movie, MusicVideo, Podcast, Software, Song, TVShow } from '@/models/Media.js'
 
 export default class MediaFactory {
-	static createMedia(iTunesItem) {
-		let type = iTunesItem.wrapperType || iTunesItem.kind
+	static createMedia(apiData) {
+		switch (apiData.wrapperType) {
+			case 'track':
+				return this.createTrackBasedMedia(apiData)
 
-		if (type === 'track') {
-			type = iTunesItem.kind
-		}
-
-		switch (type) {
-			case 'feature-movie':
-				return new Movie(iTunesItem)
-			case 'podcast':
-				return new Podcast(iTunesItem)
-			case 'song':
-				return new Music(iTunesItem)
-			case 'music-video':
-				return new MusicVideo(iTunesItem)
 			case 'audiobook':
-				return new Audiobook(iTunesItem)
-			case 'software':
-				return new Software(iTunesItem)
-			case 'tv-episode':
-				return new TvShow(iTunesItem)
+				return new AudioBook(apiData.artworkUrl100, apiData.collectionName, apiData.artistName, apiData.description)
+
 			case 'ebook':
-				return new EBook(iTunesItem)
+				return new Book(apiData.artworkUrl100, apiData.trackName, apiData.artistName, apiData.genres.join(', ')) // Assuming 'genres' is an array of genre names.
+
 			default:
-				console.error(`Unknown type: ${type}`)
+				console.warn('Unrecognized wrapperType:', apiData.wrapperType)
+				return null
+		}
+	}
+
+	static createTrackBasedMedia(apiData) {
+		switch (apiData.kind) {
+			case 'album':
+				return new Album(apiData.artworkUrl100, apiData.collectionName, apiData.artistName, apiData.trackCount)
+
+			case 'song':
+				return new Song(
+					apiData.artworkUrl100,
+					apiData.trackName,
+					apiData.artistName,
+					apiData.collectionName,
+					apiData.trackExplicitness,
+				)
+
+			case 'feature-movie':
+				return new Movie(
+					apiData.artworkUrl100,
+					apiData.trackName,
+					apiData.artistName,
+					apiData.trackTimeMillis,
+					apiData.primaryGenreName,
+				)
+
+			case 'music-video':
+				return new MusicVideo(apiData.artworkUrl100, apiData.trackName, apiData.artistName, apiData.primaryGenreName)
+
+			case 'podcast':
+				return new Podcast(
+					apiData.artworkUrl100,
+					apiData.collectionName,
+					apiData.artistName,
+					apiData.genreIds.join(', '),
+				)
+
+			case 'software':
+				return new Software(
+					apiData.artworkUrl100,
+					apiData.trackName,
+					apiData.sellerName,
+					apiData.genres.join(', '),
+					apiData.price,
+				)
+
+			case 'tvShow':
+				return new TVShow(apiData.artworkUrl100, apiData.collectionName, apiData.trackName, apiData.trackTimeMillis)
+
+			default:
+				console.warn('Unrecognized kind:', apiData.kind)
 				return null
 		}
 	}

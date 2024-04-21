@@ -1,25 +1,28 @@
 <!-- @format -->
 
 <template>
-	<div class="tvshow-card">
+	<div class="card">
+		<div class="img-container">
+			<img :src="item.image" class="card-img-top" alt="TV Show Poster" />
+		</div>
+
 		<div class="card-body">
-			<h5 class="card-title">{{ tvshow.title }}</h5>
-			<p class="show-term">Show: {{ tvshow.showTerm }}</p>
-			<p class="episode-term">Episode: {{ tvshow.episodeTerm }}</p>
-			<p class="season-term">Season: {{ tvshow.seasonTerm }}</p>
-			<p class="genre-name">Genre: {{ tvshow.genre }}</p>
-			<p class="description-text">Description: {{ tvshow.description }}</p>
+			<h5 class="card-title">{{ item.title }}</h5>
+			<p class="card-text">Episode: {{ item.episodeName }}</p>
+			<p class="card-text">Length: {{ item.length }} minutes</p>
+			<p class="card-text">Type: {{ item.type }}</p>
 		</div>
 	</div>
 </template>
 
 <script>
+import { TVShow } from '../models/Media.js'
+
 export default {
 	name: 'TvShowDetails',
 	props: {
-		tvshow: {
-			type: Object,
-			required: true,
+		item: {
+			type: TVShow,
 		},
 	},
 }

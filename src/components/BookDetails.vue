@@ -1,25 +1,28 @@
 <!-- @format -->
 
-<template>
-	<div class="book-card">
-		<div class="card-body">
-			<h5 class="card-title">{{ book.title }}</h5>
-			<p class="author-name">Author: {{ book.author }}</p>
-			<p class="genre-name">Genre: {{ book.genre }}</p>
-		</div>
-	</div>
-</template>
-
 <script>
+import { Book } from '@/models/Media.js'
+
 export default {
 	name: 'BookDetails',
 	props: {
-		book: {
-			type: Object,
-			required: true,
+		item: {
+			type: Book,
 		},
 	},
 }
 </script>
 
-<style scoped></style>
+<template>
+	<div class="book">
+		<h3 class="card-title">{{ item.title }}</h3>
+		<p v-if="item.pages" class="card-text">Pages: {{ item.pages }}</p>
+	</div>
+</template>
+
+<style scoped lang="scss">
+@import '@/scss/variables';
+h3 {
+	color: $primary;
+}
+</style>

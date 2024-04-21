@@ -1,32 +1,33 @@
+<!-- @format -->
+
 <template>
-<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-3">
-            <div class="col" v-for="item in library">
-                <library-item :item="item" @remove="item => library.remove(item)" :remove-item="() => library.remove(item)"></library-item>
-            </div>
-        </div>
+	<h2 class="my-4 text-center">Library Items</h2>
+	<div class="row row-cols-1 px-2 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-3 justify-content-between">
+		<LibraryItem v-for="(thing, i) in library.items" :item="thing" :key="i" @add-bag="addToBag"></LibraryItem>
+	</div>
 </template>
 
 <script>
-  import LibraryItem from "@/components/LibraryItem.vue";
-import LibraryCollection from "@/models/LibraryCollection.js";
-import { Book, Movie } from "@/models/Media.js";
-  export default {
-    name: 'LibraryItemList',
-    components: {
-      LibraryItem,
+import LibraryItem from './LibraryItem.vue'
 
-    },
-    data() {
-      return {
-        library: new LibraryCollection()
-          .add(new Book('Clean Code', 600))
-          .add(new Movie('John Wick', 141))
-          .add(new Movie('Lord of the Rings', 180))
-          .add(new Book('1000 Miles Home', 345)),
-
-      }
-    }
-  }
+export default {
+	name: 'LibraryItemList',
+	components: {
+		LibraryItem,
+	},
+	props: {
+		library: {
+			type: Object,
+			required: true,
+		},
+		bag: Object,
+	},
+	methods: {
+		addToBag(item) {
+			console.log('from the library')
+			this.$emit('add-bag', item)
+		},
+	},
+	emits: ['update-bag', 'add-bag', 'empty-bag'],
+}
 </script>
-<style scoped>
-</style>

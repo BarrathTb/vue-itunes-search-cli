@@ -1,115 +1,147 @@
 /** @format */
 
-class Media {
-	static type = 'Media'
+class MediaItem {
+	image
+	title
+	type
 
-	constructor({ title, artist, genre, description }) {
+	constructor({ image, title, type }) {
+		this.artworkUrl100 = image
 		this.title = title
-		this.artist = artist
-		this.genre = genre
-		this.description = description
-	}
-
-	get type() {
-		return this.constructor.type
+		this.type = type
 	}
 }
 
-class Movie extends Media {
+class Album extends MediaItem {
+	static type = 'Album'
+	static detailsComponent = 'AlbumDetails'
+
+	artist
+	trackCount
+
+	constructor(image, title, artist, trackCount) {
+		super({ image, title, type: Album.type })
+		this.artist = artist
+		this.trackCount = trackCount
+	}
+}
+
+class AudioBook extends MediaItem {
+	static type = 'AudioBook'
+	static detailsComponent = 'AudioBookDetails'
+
+	artist
+	description
+
+	constructor(image, title, artist, description) {
+		super({ image, title, type: AudioBook.type })
+		this.artist = artist
+		this.description = description
+	}
+}
+
+class Book extends MediaItem {
+	static type = 'Book'
+	static detailsComponent = 'BookDetails'
+
+	artist
+	genre
+
+	constructor(image, title, artist, genre) {
+		super({ image, title, type: EBook.type })
+		this.artist = artist
+		this.genre = genre
+	}
+}
+
+class Movie extends MediaItem {
 	static type = 'Movie'
 	static detailsComponent = 'MovieDetails'
 
-	constructor({
-		title,
-		actor,
-		genre,
-		artist,
-		producer,
-		rating,
-		director,
-		releaseYear,
-		featureFilm,
-		movieArtist,
-		movie,
-		description,
-	}) {
-		super({ title, artist, genre, description })
-		this.actor = actor
-		this.producer = producer
-		this.rating = rating
+	director
+	runtime
+	genre
+
+	constructor(image, title, director, runtime, genre) {
+		super({ image, title, type: Movie.type })
 		this.director = director
-		this.releaseYear = releaseYear
-		this.featureFilm = featureFilm
-		this.movieArtist = movieArtist
-		this.movie = movie
+		this.runtime = runtime
+		this.genre = genre
 	}
 }
 
-class Music extends Media {
-	static type = 'Music'
-	static detailsComponent = 'MusicDetails'
-
-	constructor({ title, artist, genre, album, composer, songTerm }) {
-		super({ title, artist, genre })
-		this.album = album
-		this.composer = composer
-		this.songTerm = songTerm
-	}
-}
-
-class Podcast extends Media {
-	static type = 'Podcast'
-	static detailsComponent = 'PodcastDetails'
-
-	constructor({ title, language, author, genre, keywords, description }) {
-		super({ title, genre, description })
-		this.language = language
-		this.author = author
-		this.keywords = keywords
-	}
-}
-
-class Audiobook extends Media {
-	static type = 'Audiobook'
-	static detailsComponent = 'AudiobookDetails'
-
-	constructor({ title, author, genre }) {
-		super({ title, genre })
-		this.author = author
-	}
-}
-
-class MusicVideo extends Media {
+class MusicVideo extends MediaItem {
 	static type = 'MusicVideo'
 	static detailsComponent = 'MusicVideoDetails'
 
-	constructor({ title, artist, genre, album, songTerm }) {
-		super({ title, artist, genre })
-		this.album = album
-		this.songTerm = songTerm
+	artist
+	genre
+
+	constructor(image, title, artist, genre) {
+		super({ image, title, type: MusicVideo.type })
+		this.artist = artist
+		this.genre = genre
 	}
 }
 
-class TvShow extends Media {
-	static type = 'TvShow'
-	static detailsComponent = 'TvShowDetails'
+class Podcast extends MediaItem {
+	static type = 'Podcast'
+	static detailsComponent = 'PodcastDetails'
 
-	constructor({ title, genre, episodeTerm, seasonTerm, showTerm, description }) {
-		super({ title, genre, description })
-		this.episodeTerm = episodeTerm
-		this.seasonTerm = seasonTerm
-		this.showTerm = showTerm
+	artist
+	genre
+
+	constructor(image, title, artist, genre) {
+		super({ image, title, type: Podcast.type })
+		this.artist = artist
+		this.genre = genre
 	}
 }
 
-class Software extends Media {
+class Software extends MediaItem {
 	static type = 'Software'
 	static detailsComponent = 'SoftwareDetails'
 
-	constructor({ title, softwareDeveloper }) {
-		super({ title })
-		this.softwareDeveloper = softwareDeveloper
+	developer
+	category
+	price
+
+	constructor(image, title, developer, category, price) {
+		super({ image, title, type: Software.type })
+		this.developer = developer
+		this.category = category
+		this.price = price
 	}
 }
 
-export { Audiobook, Audiobook as EBook, Media, Movie, Music, MusicVideo, Podcast, Movie as ShortFilm, Software, TvShow }
+class Song extends MediaItem {
+	static type = 'Song'
+	static detailsComponent = 'SongDetails'
+
+	artist
+	album
+	explicitness
+
+	constructor(image, title, artist, album, explicitness) {
+		super({ image, title, type: Song.type })
+		this.artist = artist
+		this.album = album
+		this.explicitness = explicitness
+	}
+}
+
+class TVShow extends MediaItem {
+	static type = 'TvShow'
+	static detailsComponent = 'TvShowDetails'
+
+	episodeName
+	length
+
+	constructor(image, title, episodeName, length) {
+		super({ image, title, type: TvShow.type })
+		this.episodeName = episodeName
+		this.length = length
+	}
+}
+
+export { Album, AudioBook, Book, MediaItem, Movie, MusicVideo, Podcast, Software, Song, TVShow }

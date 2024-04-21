@@ -1,21 +1,23 @@
 /** @format */
+
 import LibraryItem from '@/models/LibraryItem.js'
-export default function LibraryCollection(arr = []) {
-	// composition
-	// this.items = []
+export class LibraryCollection {
+	constructor() {
+		this.items = []
 
-	arr.add = function (media) {
-		this.push(new LibraryItem(media))
+		this.addItem = function (item) {
+			this.items.push(new LibraryItem(item))
 
-		// return this for chaining
-		return this
+			return this
+		}
+
+		this.removeItem = function (item) {
+			this.items.splice(this.items.indexOf(item), 1)
+
+			return this
+		}
+		this.clearItems = function () {
+			this.items = [] // Assuming this class manages an array called 'items'
+		}
 	}
-
-	arr.remove = function (item) {
-		this.splice(this.indexOf(item), 1)
-
-		return this
-	}
-
-	return arr
 }

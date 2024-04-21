@@ -1,21 +1,28 @@
 <!-- @format -->
 
 <template>
-	<div class="software-card">
+	<div class="card">
+		<div class="img-container">
+			<img :src="item.image" class="card-img-top" alt="Software Cover" />
+		</div>
+
 		<div class="card-body">
-			<h5 class="card-title">{{ software.title }}</h5>
-			<p class="developer-name">Developer: {{ software.softwareDeveloper }}</p>
+			<h5 class="card-title">{{ item.title }}</h5>
+			<p class="card-text">Developer: {{ item.developer }}</p>
+			<p class="card-text">Category: {{ item.category }}</p>
+			<p class="card-text">Price: ${{ item.price }}</p>
+			<p class="card-text">Type: {{ item.type }}</p>
 		</div>
 	</div>
 </template>
 
 <script>
+import { Software } from '../models/Media.js'
 export default {
 	name: 'SoftwareDetails',
 	props: {
-		software: {
-			type: Object,
-			required: true,
+		item: {
+			type: Software,
 		},
 	},
 }
